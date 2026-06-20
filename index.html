@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reform İnovasyon Yapı | Geleceği İnşa Ediyoruz</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <!-- ==========================================================================
+       1. Preloader (Yükleme Ekranı)
+       ========================================================================== -->
+    <div id="preloader">
+        <div class="preloader-bg-pattern"></div>
+        <div class="preloader-content">
+            <div class="preloader-logo-container">
+                <div class="logo-outer-ring"></div>
+                <div class="logo-inner-icon fs-2 fw-bold ls-tight">R<span>I</span></div>
+            </div>
+            <div class="preloader-text fs-5 fw-semibold ls-wide-lg text-uppercase">Yükleniyor...</div>
+            <div class="preloader-subtext small ls-wide-sm">Reform İnovasyon Yapı</div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+       2. Header (Üst Bar)
+       ========================================================================== -->
+    <header class="navbar navbar-dark fixed-top p-3 glass-header">
+        <div class="container-fluid px-md-4">
+            <a class="navbar-brand fs-4 fw-bold ls-wide-sm d-flex align-items-center" href="index.html">
+                <span
+                    style="color: var(--theme-color); transition: color 1.2s; font-size: 1.8rem; margin-right: 5px;">R</span>EFORM
+                İNOVASYON
+            </a>
+
+            <!-- Masaüstü Navigasyon (Büyük Ekranlar) -->
+            <nav class="d-none d-lg-flex align-items-center gap-4">
+                <a href="index.html" class="nav-link-item header-nav-link small fw-semibold text-uppercase ls-wide-sm"
+                    data-color="#FF6B6B">Anasayfa</a>
+
+                <!-- Kurumsal Dropdown -->
+                <div class="dropdown">
+                    <a class="nav-link-item header-nav-link dropdown-toggle small fw-semibold text-uppercase ls-wide-sm"
+                        href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-color="#FF6B6B">
+                        Kurumsal
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark glass-dropdown">
+                        <li><a class="dropdown-item small fw-normal" href="about.html">Hakkımızda</a></li>
+                        <li><a class="dropdown-item small fw-normal" href="vision.html">Vizyonumuz</a></li>
+                        <li><a class="dropdown-item small fw-normal" href="mission.html">Misyonumuz</a></li>
+                    </ul>
+                </div>
+
+                <!-- Hizmetlerimiz -->
+                <a href="services.html"
+                    class="nav-link-item header-nav-link small fw-semibold text-uppercase ls-wide-sm"
+                    data-color="#FF6B6B">Hizmetlerimiz</a>
+
+                <!-- Projeler Dropdown -->
+                <div class="dropdown">
+                    <a class="nav-link-item header-nav-link dropdown-toggle small fw-semibold text-uppercase ls-wide-sm"
+                        href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-color="#FF6B6B">
+                        Projeler
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark glass-dropdown">
+                        <li><a class="dropdown-item small fw-normal" href="refbrown.html" data-color="#8B4513">Ref<span
+                                    class="color-brown">Brown</span> Projesi</a></li>
+                        <li><a class="dropdown-item small fw-normal" href="refblue.html" data-color="#0F52BA">Ref<span
+                                    class="color-blue">Blue</span> Projesi</a></li>
+                        <li><a class="dropdown-item small fw-normal" href="refred.html" data-color="#DC3545">Ref<span
+                                    class="color-red">Red</span> Projesi</a></li>
+                        <li><a class="dropdown-item small fw-normal" href="refgreen.html" data-color="#28A745">Ref<span
+                                    class="color-green">Green</span> Projesi</a></li>
+                    </ul>
+                </div>
+
+                <a href="contact.html" class="nav-link-item header-nav-link small fw-semibold text-uppercase ls-wide-sm"
+                    data-color="#FF6B6B">İletişim</a>
+            </nav>
+
+            <!-- Mobil Menü Tetikleyici (Küçük Ekranlar) -->
+            <button class="menu-trigger-btn d-lg-none" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#sliderMenu" aria-controls="sliderMenu">
+                <span class="menu-icon-line"></span>
+                <span class="menu-icon-line"></span>
+                <span class="menu-icon-line"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ==========================================================================
+       3. Slider Menü (Off-Canvas)
+       ========================================================================== -->
+    <div class="offcanvas offcanvas-end glass-menu" tabindex="-1" id="sliderMenu" aria-labelledby="sliderMenuLabel">
+        <div class="offcanvas-header justify-content-end p-4">
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                aria-label="Kapat"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column justify-content-center align-items-center">
+            <nav class="slider-nav">
+                <ul class="list-unstyled text-center">
+                    <li><a href="index.html" class="nav-link-item fs-3 fw-semibold" data-color="#FF6B6B">Anasayfa</a>
+                    </li>
+
+                    <!-- Mobil Kurumsal Akordeon -->
+                    <li>
+                        <a class="nav-link-item collapsed fs-3 fw-semibold" data-bs-toggle="collapse"
+                            href="#kurumsalSubmenu" role="button" aria-expanded="false" aria-controls="kurumsalSubmenu"
+                            data-color="#FF6B6B">
+                            Kurumsal <span class="fs-6 menu-arrow">&darr;</span>
+                        </a>
+                        <div class="collapse" id="kurumsalSubmenu">
+                            <ul class="list-unstyled ps-0 mt-2 text-center">
+                                <li class="my-2"><a href="about.html" class="nav-link-item fs-5 fw-semibold"
+                                        data-color="#FF6B6B">Hakkımızda</a></li>
+                                <li class="my-2"><a href="vision.html" class="nav-link-item fs-5 fw-semibold"
+                                        data-color="#FF6B6B">Vizyonumuz</a></li>
+                                <li class="my-2"><a href="mission.html" class="nav-link-item fs-5 fw-semibold"
+                                        data-color="#FF6B6B">Misyonumuz</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <!-- Hizmetlerimiz -->
+                    <li><a href="services.html" class="nav-link-item fs-3 fw-semibold"
+                            data-color="#FF6B6B">Hizmetlerimiz</a></li>
+
+                    <!-- Mobil Projeler Akordeon -->
+                    <li>
+                        <a class="nav-link-item collapsed fs-3 fw-semibold" data-bs-toggle="collapse"
+                            href="#projelerSubmenu" role="button" aria-expanded="false" aria-controls="projelerSubmenu"
+                            data-color="#FF6B6B">
+                            Projeler <span class="fs-6 menu-arrow">&darr;</span>
+                        </a>
+                        <div class="collapse" id="projelerSubmenu">
+                            <ul class="list-unstyled ps-0 mt-2 text-center">
+                                <li class="my-2"><a href="refbrown.html" class="nav-link-item fs-5 fw-semibold"
+                                        data-color="#8B4513">Ref<span class="color-brown">Brown</span> Projesi</a></li>
+                                <li class="my-2"><a href="refblue.html" class="nav-link-item fs-5 fw-semibold"
+                                        data-color="#0F52BA">Ref<span class="color-blue">Blue</span> Projesi</a></li>
+                                <li class="my-2"><a href="refred.html" class="nav-link-item fs-5 fw-semibold"
+                                        data-color="#DC3545">Ref<span class="color-red">Red</span> Projesi</a></li>
+                                <li class="my-2"><a href="refgreen.html" class="nav-link-item fs-5 fw-semibold"
+                                        data-color="#28A745">Ref<span class="color-green">Green</span> Projesi</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li><a href="contact.html" class="nav-link-item fs-3 fw-semibold" data-color="#FF6B6B">İletişim</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+       4. Proje Slider Alanı (Custom Slider)
+       ========================================================================== -->
+    <main class="slider-container">
+        <div class="slides-wrapper">
+            <!-- Slide 1: RefBrown -->
+            <section class="project-slide active" data-color="#8B4513" data-name="RefBrown">
+                <div class="slide-content">
+                    <div class="project-info">
+                        <span class="badge mb-3 px-3 py-2 text-uppercase"
+                            style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); letter-spacing: 2px;">Konsept
+                            Proje</span>
+                        <h1 class="project-title display-1 fw-bold ls-tight-lg">Ref<span
+                                class="color-brown">Brown</span></h1>
+                        <p class="project-desc fs-5 fw-light">Ahşap ve taş detayların zarafetle harmanlandığı, doğa ile
+                            iç içe,
+                            sürdürülebilir konut projesi. Doğal tekstürleri modern yaşamın gereklilikleriyle
+                            birleştiriyor.</p>
+                        <a href="refbrown.html" class="btn btn-outline-light px-4 py-3 rounded-pill fw-semibold"
+                            style="letter-spacing: 1px;">PROJEYİ İNCELE &rarr;</a>
+                    </div>
+                    <div class="project-image-container">
+                        <img src="assets/images/refbrown-building.png" alt="RefBrown Konut Projesi"
+                            class="floating-building">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 2: RefBlue -->
+            <section class="project-slide" data-color="#0F52BA" data-name="RefBlue">
+                <div class="slide-content">
+                    <div class="project-info">
+                        <span class="badge mb-3 px-3 py-2 text-uppercase"
+                            style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); letter-spacing: 2px;">Rezidans
+                            & Akıllı Ev</span>
+                        <p class="project-desc fs-5 fw-light">Gökyüzü tonlarının yüksek teknoloji cam cephelerle
+                            buluştuğu lüks
+                            rezidans konsepti. Akıllı bina altyapısı ve panoramik şehir manzarasıyla geleceği bugünden
+                            yaşatıyor.</p>
+                        <a href="refblue.html" class="btn btn-outline-light px-4 py-3 rounded-pill fw-semibold"
+                            style="letter-spacing: 1px;">PROJEYİ İNCELE &rarr;</a>
+                    </div>
+                    <div class="project-image-container">
+                        <img src="assets/images/refblue-building.png" alt="RefBlue Rezidans Projesi"
+                            class="floating-building">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 3: RefRed -->
+            <section class="project-slide" data-color="#DC3545" data-name="RefRed">
+                <div class="slide-content">
+                    <div class="project-info">
+                        <span class="badge mb-3 px-3 py-2 text-uppercase"
+                            style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); letter-spacing: 2px;">Ticari
+                            & Karma Yaşam</span>
+                        <h1 class="project-title display-1 fw-bold ls-tight-lg">Ref<span class="color-red">Red</span>
+                        </h1>
+                        <p class="project-desc fs-5 fw-light">Şehrin merkezinde dinamizmi simgeleyen cesur kırmızı çelik
+                            strüktürler.
+                            Alışveriş, ofis and sosyal alanları entegre eden modern karma yaşam merkezi projesi.</p>
+                        <a href="refred.html" class="btn btn-outline-light px-4 py-3 rounded-pill fw-semibold"
+                            style="letter-spacing: 1px;">PROJEYİ İNCELE &rarr;</a>
+                    </div>
+                    <div class="project-image-container">
+                        <h1 class="project-title display-1 fw-bold ls-tight-lg">Ref<span class="color-blue">Blue</span>
+                        </h1>
+
+                        <img src="assets/images/refred-building.png" alt="RefRed Plaza Projesi"
+                            class="floating-building">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 4: RefGreen -->
+            <section class="project-slide" data-color="#28A745" data-name="RefGreen">
+                <div class="slide-content">
+                    <div class="project-info">
+                        <span class="badge mb-3 px-3 py-2 text-uppercase"
+                            style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); letter-spacing: 2px;">Ekolojik
+                            & Sürdürülebilir</span>
+                        <h1 class="project-title display-1 fw-bold ls-tight-lg">Ref<span
+                                class="color-green">Green</span></h1>
+                        <p class="project-desc fs-5 fw-light">Kendi enerjisini üreten, yağmur suyu toplama sistemli
+                            ekolojik villalar.
+                            Dikey peyzajı ve yeşil çatı teknolojileriyle doğaya karbon ayak izi bırakmayan inovatif
+                            mimari.</p>
+                        <a href="refgreen.html" class="btn btn-outline-light px-4 py-3 rounded-pill fw-semibold"
+                            style="letter-spacing: 1px;">PROJEYİ İNCELE &rarr;</a>
+                    </div>
+                    <div class="project-image-container">
+                        <img src="assets/images/refgreen-building.png" alt="RefGreen Villa Projesi"
+                            class="floating-building">
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Slider Yön Butonları -->
+        <div class="slider-controls">
+            <button id="prevBtn" class="control-btn" aria-label="Önceki Slayt">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+            </button>
+            <button id="playPauseBtn" class="control-btn" aria-label="Slayt Gösterisini Durdur">
+                <!-- Pause Icon (Default) -->
+                <svg class="pause-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="6" y="4" width="4" height="16"></rect>
+                    <rect x="14" y="4" width="4" height="16"></rect>
+                </svg>
+                <!-- Play Icon (Hidden) -->
+                <svg class="play-icon d-none" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+            </button>
+            <button id="nextBtn" class="control-btn" aria-label="Sonraki Slayt">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </button>
+        </div>
+    </main>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
