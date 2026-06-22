@@ -1,0 +1,6 @@
+@ReformApi_HostAddress = http://localhost:5056
+
+GET {{ReformApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

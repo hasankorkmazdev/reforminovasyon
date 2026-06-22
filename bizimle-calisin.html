@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bizimle Çalışın | Reform İnovasyon Yapı</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <style>
+        .content-container {
+            padding-top: 140px;
+            padding-bottom: 120px;
+            min-height: 100vh;
+            background: radial-gradient(circle at 90% 10%, rgba(255, 107, 107, 0.05) 0%, transparent 50%);
+        }
+
+        .form-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+        }
+
+        .form-control,
+        .form-select {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--theme-color);
+            color: #ffffff;
+            box-shadow: none;
+        }
+
+        .form-select option {
+            background: #1a1a1a;
+            color: #ffffff;
+        }
+
+        .form-select optgroup {
+            background: #1a1a1a;
+            color: var(--theme-color);
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        .request-badge {
+            display: inline-block;
+            background: rgba(255, 107, 107, 0.15);
+            color: var(--theme-color);
+            border-radius: 50px;
+            padding: 2px 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 6px;
+        }
+
+        .category-info-panel {
+            background: rgba(255, 107, 107, 0.05);
+            border: 1px solid rgba(255, 107, 107, 0.15);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .success-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .success-overlay.show {
+            display: flex;
+        }
+
+        .success-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(15px);
+            border-radius: 24px;
+            padding: 3rem;
+            text-align: center;
+            max-width: 480px;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(40, 167, 69, 0.15);
+            border: 2px solid rgba(40, 167, 69, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+            color: #28A745;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="preloader-bg-pattern"></div>
+        <div class="preloader-content">
+            <div class="preloader-logo-container">
+                <div class="logo-outer-ring"></div>
+                <div class="logo-inner-icon fs-2 fw-bold ls-tight">R<span>I</span></div>
+            </div>
+            <div class="preloader-text fs-5 fw-semibold ls-wide-lg text-uppercase">Yükleniyor...</div>
+            <div class="preloader-subtext small ls-wide-sm">Reform İnovasyon Yapı</div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="navbar navbar-dark fixed-top p-3 glass-header">
+        <div class="container-fluid px-md-4">
+            <a class="navbar-brand fs-4 fw-bold ls-wide-sm d-flex align-items-center" href="index.html">
+                <span style="color: var(--theme-color); transition: color 1.2s; font-size: 1.8rem; margin-right: 5px;">R</span>EFORM İNOVASYON
+            </a>
+
+            <nav class="d-none d-lg-flex align-items-center gap-4">
+                <a href="index.html" class="nav-link-item header-nav-link small fw-semibold text-uppercase ls-wide-sm" data-color="#FF6B6B">Anasayfa</a>
+                <div class="dropdown">
+                    <a class="nav-link-item header-nav-link dropdown-toggle small fw-semibold text-uppercase ls-wide-sm" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-color="#FF6B6B">Kurumsal</a>
+                    <ul class="dropdown-menu dropdown-menu-dark glass-dropdown">
+                        <li><a class="dropdown-item small fw-normal" href="about.html">Hakkımızda</a></li>
+                        <li><a class="dropdown-item small fw-normal" href="vision.html">Vizyonumuz</a></li>
+                        <li><a class="dropdown-item small fw-normal" href="mission.html">Misyonumuz</a></li>
+                    </ul>
+                </div>
+                <a href="services.html" class="nav-link-item header-nav-link small fw-semibold text-uppercase ls-wide-sm" data-color="#FF6B6B">Hizmetlerimiz</a>
+                <div class="dropdown">
+                    <a class="nav-link-item header-nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-color="#FF6B6B">Projeler</a>
+                    <ul class="dropdown-menu dropdown-menu-dark glass-dropdown">
+                        <li><a class="dropdown-item small fw-normal" href="refbrown.html" data-color="#8B4513">Ref<span class="color-brown">Brown</span> Projesi</a></li>
+                        <li><a class="dropdown-item small fw-normal" href="refblue.html" data-color="#0F52BA">Ref<span class="color-blue">Blue</span> Projesi</a></li>
+                        <li><a class="dropdown-item small fw-normal" href="refred.html" data-color="#DC3545">Ref<span class="color-red">Red</span> Projesi</a></li>
+                        <li><a class="dropdown-item small fw-normal" href="refgreen.html" data-color="#28A745">Ref<span class="color-green">Green</span> Projesi</a></li>
+                    </ul>
+                </div>
+                <a href="contact.html" class="nav-link-item header-nav-link small fw-semibold text-uppercase ls-wide-sm" data-color="#FF6B6B">İletişim</a>
+                <a href="bizimle-calisin.html" class="nav-link-item header-nav-link active small fw-semibold text-uppercase ls-wide-sm" data-color="#FF6B6B" style="color: #ffffff !important;">Bizimle Çalışın</a>
+            </nav>
+
+            <button class="menu-trigger-btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sliderMenu" aria-controls="sliderMenu">
+                <span class="menu-icon-line"></span>
+                <span class="menu-icon-line" style="margin: 5px 0;"></span>
+                <span class="menu-icon-line"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Slider Menu (Mobile) -->
+    <div class="offcanvas offcanvas-end glass-menu" tabindex="-1" id="sliderMenu" aria-labelledby="sliderMenuLabel">
+        <div class="offcanvas-header justify-content-end p-4">
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Kapat"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column justify-content-center align-items-center">
+            <nav class="slider-nav">
+                <ul class="list-unstyled text-center">
+                    <li><a href="index.html" class="nav-link-item fs-3 fw-semibold" data-color="#FF6B6B">Anasayfa</a></li>
+                    <li>
+                        <a class="nav-link-item collapsed fs-3 fw-semibold" data-bs-toggle="collapse" href="#kurumsalSubmenu" role="button" aria-expanded="false" aria-controls="kurumsalSubmenu" data-color="#FF6B6B">Kurumsal <span class="fs-6 menu-arrow">&darr;</span></a>
+                        <div class="collapse" id="kurumsalSubmenu">
+                            <ul class="list-unstyled ps-0 mt-2 text-center">
+                                <li class="my-2"><a href="about.html" class="nav-link-item fs-5 fw-semibold" data-color="#FF6B6B">Hakkımızda</a></li>
+                                <li class="my-2"><a href="vision.html" class="nav-link-item fs-5 fw-semibold" data-color="#FF6B6B">Vizyonumuz</a></li>
+                                <li class="my-2"><a href="mission.html" class="nav-link-item fs-5 fw-semibold" data-color="#FF6B6B">Misyonumuz</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="services.html" class="nav-link-item fs-3 fw-semibold" data-color="#FF6B6B">Hizmetlerimiz</a></li>
+                    <li>
+                        <a class="nav-link-item collapsed fs-3 fw-semibold" data-bs-toggle="collapse" href="#projelerSubmenu" role="button" aria-expanded="false" aria-controls="projelerSubmenu" data-color="#FF6B6B">Projeler <span class="fs-6 menu-arrow">&darr;</span></a>
+                        <div class="collapse" id="projelerSubmenu">
+                            <ul class="list-unstyled ps-0 mt-2 text-center">
+                                <li class="my-2"><a href="refbrown.html" class="nav-link-item fs-5 fw-semibold" data-color="#8B4513">Ref<span class="color-brown">Brown</span> Projesi</a></li>
+                                <li class="my-2"><a href="refblue.html" class="nav-link-item fs-5 fw-semibold" data-color="#0F52BA">Ref<span class="color-blue">Blue</span> Projesi</a></li>
+                                <li class="my-2"><a href="refred.html" class="nav-link-item fs-5 fw-semibold" data-color="#DC3545">Ref<span class="color-red">Red</span> Projesi</a></li>
+                                <li class="my-2"><a href="refgreen.html" class="nav-link-item fs-5 fw-semibold" data-color="#28A745">Ref<span class="color-green">Green</span> Projesi</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="contact.html" class="nav-link-item fs-3 fw-semibold" data-color="#FF6B6B">İletişim</a></li>
+                    <li><a href="bizimle-calisin.html" class="nav-link-item fs-3 fw-semibold" data-color="#FF6B6B" style="color: #ffffff !important;">Bizimle Çalışın</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="content-container">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8 text-center">
+                    <span class="badge mb-3 px-3 py-2 text-uppercase" style="background: rgba(255,77,77,0.15); border: 1px solid rgba(255,77,77,0.3); color: var(--theme-color); letter-spacing: 2px;">İş Ortaklığı</span>
+                    <h1 class="display-4 fw-bold">Bizimle Çalışın</h1>
+                    <p class="lead text-white-50">Projelerimizde yer almak istediğiniz iş kolunu seçin, size en kısa sürede dönüş yapalım.</p>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-10">
+                    <div class="form-card">
+                        <form id="workForm" novalidate>
+                            <div class="row g-4">
+                                <div class="col-12">
+                                    <label for="categorySelect" class="form-label text-white-50 fw-semibold">Çalışmak İstediğiniz İş Kolu</label>
+                                    <select class="form-select" id="categorySelect" required>
+                                        <option value="">-- Seçiniz --</option>
+                                    </select>
+                                    <div id="categoryInfo" class="category-info-panel mt-2 d-none">
+                                        <span id="categoryInfoText" class="small text-white-50"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="companyInput" class="form-label text-white-50 fw-semibold">Firma Adı</label>
+                                    <input type="text" class="form-control" id="companyInput" required placeholder="Firmanızın adı">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="contactInput" class="form-label text-white-50 fw-semibold">Yetkili Kişi</label>
+                                    <input type="text" class="form-control" id="contactInput" required placeholder="Adınız Soyadınız">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="emailInput" class="form-label text-white-50 fw-semibold">E-Posta</label>
+                                    <input type="email" class="form-control" id="emailInput" required placeholder="ornek@firma.com">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="phoneInput" class="form-label text-white-50 fw-semibold">Telefon</label>
+                                    <input type="tel" class="form-control" id="phoneInput" required placeholder="05XX XXX XX XX">
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="descInput" class="form-label text-white-50 fw-semibold">Proje Açıklaması <span class="text-white-50" style="font-weight: 300; font-size: 0.85rem;">(isteğe bağlı)</span></label>
+                                    <textarea class="form-control" id="descInput" rows="4" placeholder="Yapmak istediğiniz işi kısaca açıklayınız..."></textarea>
+                                </div>
+
+                                <div class="col-12 mt-2">
+                                    <button type="submit" id="submitBtn" class="btn btn-outline-light w-100 py-3 rounded-pill fw-semibold" style="border-color: rgba(255,255,255,0.2); transition: all 0.3s;">
+                                        <span id="btnText">Başvuruyu Gönder</span>
+                                        <span id="btnSpinner" class="spinner-border spinner-border-sm d-none" role="status"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Overlay -->
+    <div class="success-overlay" id="successOverlay">
+        <div class="success-card">
+            <div class="success-icon">&#10003;</div>
+            <h3 class="fw-bold mb-3">Başvurunuz Alındı!</h3>
+            <p class="text-white-50 mb-4">Ekibimiz en kısa sürede sizinle iletişime geçecektir.</p>
+            <button class="btn btn-outline-light px-4 py-2 rounded-pill fw-semibold" onclick="document.getElementById('successOverlay').classList.remove('show')">Tamam</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <script>
+        const API_BASE = 'http://localhost:9090/api';
+
+        async function loadCategories() {
+            const select = document.getElementById('categorySelect');
+            try {
+                const res = await fetch(`${API_BASE}/categories`);
+                const groups = await res.json();
+
+                groups.forEach(group => {
+                    const optgroup = document.createElement('optgroup');
+                    optgroup.label = group.name;
+                    group.categories.forEach(cat => {
+                        const option = document.createElement('option');
+                        option.value = cat.id;
+                        option.textContent = `${cat.name} (${cat.application_count} talep)`;
+                        option.dataset.count = cat.application_count;
+                        option.dataset.groupName = group.name;
+                        optgroup.appendChild(option);
+                    });
+                    select.appendChild(optgroup);
+                });
+            } catch (err) {
+                console.error('Kategoriler yüklenemedi:', err);
+                select.innerHTML = '<option value="">Kategoriler yüklenemedi, lütfen sayfayı yenileyin</option>';
+            }
+        }
+
+        document.getElementById('categorySelect').addEventListener('change', function () {
+            const info = document.getElementById('categoryInfo');
+            const text = document.getElementById('categoryInfoText');
+            const selected = this.options[this.selectedIndex];
+
+            if (selected && selected.value) {
+                info.classList.remove('d-none');
+                const groupName = selected.dataset.groupName;
+                const count = selected.dataset.count || 0;
+                text.textContent = `Grup: ${groupName} | Bu iş kolunda şu ana kadar ${count} başvuru bulunuyor.`;
+            } else {
+                info.classList.add('d-none');
+            }
+        });
+
+        document.getElementById('workForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const btnSpinner = document.getElementById('btnSpinner');
+
+            const categoryId = document.getElementById('categorySelect').value;
+            const company = document.getElementById('companyInput').value.trim();
+            const contact = document.getElementById('contactInput').value.trim();
+            const email = document.getElementById('emailInput').value.trim();
+            const phone = document.getElementById('phoneInput').value.trim();
+            const desc = document.getElementById('descInput').value.trim();
+
+            if (!categoryId || !company || !contact || !email || !phone) {
+                alert('Lütfen tüm zorunlu alanları doldurunuz.');
+                return;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Geçerli bir e-posta adresi giriniz.');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            btnText.classList.add('d-none');
+            btnSpinner.classList.remove('d-none');
+
+            try {
+                const res = await fetch(`${API_BASE}/applications`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        category_id: parseInt(categoryId),
+                        company_name: company,
+                        contact_person: contact,
+                        email: email,
+                        phone: phone,
+                        description: desc
+                    })
+                });
+
+                if (!res.ok) {
+                    const err = await res.json();
+                    throw new Error(err.error || 'Bir hata oluştu');
+                }
+
+                document.getElementById('successOverlay').classList.add('show');
+                this.reset();
+                document.getElementById('categoryInfo').classList.add('d-none');
+                await loadCategories();
+            } catch (err) {
+                alert('Hata: ' + err.message);
+            } finally {
+                submitBtn.disabled = false;
+                btnText.classList.remove('d-none');
+                btnSpinner.classList.add('d-none');
+            }
+        });
+
+        loadCategories();
+    </script>
+</body>
+</html>

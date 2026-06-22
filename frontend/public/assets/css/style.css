@@ -1,0 +1,261 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+
+/* Global Tasarım Değişkenleri */
+:root {
+    --bg-color: #0d0d0d;
+    --theme-color: #FF6B6B;
+    --brand-red: #FF4D4D;
+    --brand-black: #0d0d0d;
+    --brand-white: #ffffff;
+    --font-primary: 'Outfit', sans-serif;
+
+    /* Letter Spacings (since Bootstrap doesn't have letter-spacing utilities) */
+    --ls-tight-lg: -3px;
+    --ls-tight: -1px;
+    --ls-normal: normal;
+    --ls-wide-sm: 1px;
+    --ls-wide-md: 2px;
+    --ls-wide-lg: 3px;
+}
+
+/* Global Element Typography Override */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+p {
+    font-family: var(--font-primary) !important;
+}
+
+/* Custom letter-spacing utilities that were in typography.css */
+.ls-tight-lg {
+    letter-spacing: var(--ls-tight-lg);
+}
+
+.ls-tight {
+    letter-spacing: var(--ls-tight);
+}
+
+.ls-wide-sm {
+    letter-spacing: var(--ls-wide-sm);
+}
+
+.ls-wide-md {
+    letter-spacing: var(--ls-wide-md);
+}
+
+.ls-wide-lg {
+    letter-spacing: var(--ls-wide-lg);
+}
+
+/* Custom text-stroke class */
+.text-stroke {
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: white !important;
+    color: transparent;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: #ffffff;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    transition: background-color 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+    user-select: none;
+}
+
+/* ==========================================================================
+   Custom Slider (Homepage Layout)
+   ========================================================================== */
+.slider-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.slides-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.project-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), visibility 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.project-slide.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.slide-content {
+    display: flex;
+    width: 85%;
+    max-width: 1400px;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 20;
+    padding-bottom: 80px;
+}
+
+.project-info {
+    flex: 1.2;
+    max-width: 550px;
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.project-slide.active .project-info {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: 0.4s;
+}
+
+.project-image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    opacity: 0;
+    transform: scale(0.8) translateY(30px);
+    transition: opacity 1.2s cubic-bezier(0.34, 1.56, 0.64, 1), transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.project-slide.active .project-image-container {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    transition-delay: 0.3s;
+}
+
+.floating-building {
+    max-width: 90%;
+    max-height: 55vh;
+    height: auto;
+    filter: drop-shadow(0 90px 90px #dddcdc99);
+    animation: floatAnimation 8s ease-in-out infinite;
+}
+
+@keyframes floatAnimation {
+    0%,
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-15px) rotate(1deg);
+    }
+}
+
+.project-title {
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.project-desc {
+    line-height: 1.7;
+}
+
+.slider-controls {
+    position: absolute;
+    bottom: 40px;
+    right: 8%;
+    display: flex;
+    gap: 15px;
+    z-index: 50;
+}
+
+/* ==========================================================================
+   Responsive Layout Overrides
+   ========================================================================== */
+@media (max-width: 1200px) {
+    .floating-building {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 992px) {
+    .slide-content {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        padding-bottom: 140px;
+    }
+
+    .project-info {
+        max-width: 100%;
+        margin-bottom: 2.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .project-image-container {
+        width: 100%;
+    }
+
+    .floating-building {
+        max-height: 35vh;
+    }
+
+    .slider-controls {
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 80px;
+    }
+}
+
+@media (max-width: 576px) {
+    .floating-building {
+        max-height: 28vh;
+    }
+}
+
+/* ==========================================================================
+   Proje Renklendirme / Tema Sınıfları
+   ========================================================================== */
+.color-brown {
+    color: #8B4513 !important;
+}
+
+.color-blue {
+    color: #0F52BA !important;
+}
+
+.color-red {
+    color: #DC3545 !important;
+}
+
+.color-green {
+    color: #28A745 !important;
+}
