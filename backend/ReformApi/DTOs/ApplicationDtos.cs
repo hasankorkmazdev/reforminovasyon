@@ -40,6 +40,14 @@ public record SlideRequest(
     bool IsActive
 );
 
+public record ProjectRequest(
+    string ImageUrl,
+    string Title,
+    string? Description,
+    int SortOrder,
+    bool IsActive
+);
+
 public record SocialMediaRequest(string Platform, string Url, string? Icon, bool IsActive);
 
 public record ContactInfoRequest(string Type, string Value);

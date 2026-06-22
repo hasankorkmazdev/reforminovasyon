@@ -43,6 +43,43 @@ public static class DbSeeder
             }
         }
 
+        var projects = new Project[]
+        {
+            new()
+            {
+                ImageUrl = "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80",
+                Title = "Karma Konut Projesi",
+                Description = "Modern mimari anlayışıyla tasarlanmış 450 dairelik premium konut projesi. Tamamlanma: 2025.",
+                SortOrder = 1,
+                IsActive = true
+            },
+            new()
+            {
+                ImageUrl = "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=80",
+                Title = "Ticari Ofis Kulesi",
+                Description = "Şehir merkezinde 35 katlı çevre dostu ofis binası. LEED Platinum sertifikalı.",
+                SortOrder = 2,
+                IsActive = true
+            },
+            new()
+            {
+                ImageUrl = "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80",
+                Title = "Endüstriyel Tesis",
+                Description = "10.000 m² kapalı alana sahip yüksek teknoloji üretim tesisi. Altyapı ve çelik konstrüksiyon dahil.",
+                SortOrder = 3,
+                IsActive = true
+            },
+            new()
+            {
+                ImageUrl = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+                Title = "Lüks Vila Projesi",
+                Description = "Doğayla iç içe, özel havuzlu 5 adet lüks vila. Akıllı ev sistemleri ve özel peyzaj tasarımı.",
+                SortOrder = 4,
+                IsActive = true
+            }
+        };
+        db.Projects.AddRange(projects);
+
         db.SaveChanges();
     }
 }

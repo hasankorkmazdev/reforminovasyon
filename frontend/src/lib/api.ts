@@ -112,6 +112,39 @@ export const api = {
       method: "DELETE",
     }),
 
+  getProjects: () => apiFetch<Project[]>("/projects"),
+
+  getAllProjects: () => apiFetch<Project[]>("/projects/all"),
+
+  createProject: (data: {
+    imageUrl: string;
+    title: string;
+    description?: string;
+    sortOrder: number;
+    isActive: boolean;
+  }) =>
+    apiFetch<Project>("/projects", {
+      method: "POST",
+      body: JSON.stringify(data),
+    }),
+
+  updateProject: (id: number, data: {
+    imageUrl: string;
+    title: string;
+    description?: string;
+    sortOrder: number;
+    isActive: boolean;
+  }) =>
+    apiFetch<Project>(`/projects/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+    }),
+
+  deleteProject: (id: number) =>
+    apiFetch<{ message: string }>(`/projects/${id}`, {
+      method: "DELETE",
+    }),
+
   getSlides: () => apiFetch<Slide[]>("/slides"),
 
   getAllSlides: () => apiFetch<Slide[]>("/slides/all"),
@@ -215,6 +248,16 @@ export interface Slide {
   description: string | null;
   linkUrl: string | null;
   linkText: string | null;
+  sortOrder: number;
+  isActive: boolean;
+  createdAt: string;
+}
+
+export interface Project {
+  id: number;
+  imageUrl: string;
+  title: string;
+  description: string | null;
   sortOrder: number;
   isActive: boolean;
   createdAt: string;

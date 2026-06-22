@@ -14,6 +14,7 @@ public class AppDbContext : DbContext
     public DbSet<Slide> Slides => Set<Slide>();
     public DbSet<SocialMedia> SocialMedias => Set<SocialMedia>();
     public DbSet<ContactInfo> ContactInfos => Set<ContactInfo>();
+    public DbSet<Project> Projects => Set<Project>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -97,6 +98,18 @@ public class AppDbContext : DbContext
             e.HasKey(x => x.Id);
             e.Property(x => x.Type).IsRequired().HasColumnName("type");
             e.Property(x => x.Value).IsRequired().HasColumnName("value");
+        });
+
+        modelBuilder.Entity<Project>(e =>
+        {
+            e.ToTable("projects");
+            e.HasKey(x => x.Id);
+            e.Property(x => x.ImageUrl).IsRequired().HasColumnName("image_url");
+            e.Property(x => x.Title).IsRequired().HasColumnName("title");
+            e.Property(x => x.Description).HasColumnName("description");
+            e.Property(x => x.SortOrder).HasColumnName("sort_order");
+            e.Property(x => x.IsActive).HasColumnName("is_active");
+            e.Property(x => x.CreatedAt).HasDefaultValueSql("NOW()").HasColumnName("created_at");
         });
     }
 }

@@ -10,7 +10,7 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar"
-import { LayoutDashboardIcon, UsersIcon, TagsIcon, ImageIcon, SettingsIcon } from "lucide-react"
+import { LayoutDashboardIcon, UsersIcon, TagsIcon, ImageIcon, FolderKanbanIcon, SettingsIcon } from "lucide-react"
 
 const navItems = [
   {
@@ -26,6 +26,11 @@ const navItems = [
       { title: "Başvurular", url: "/admin/partners" },
       { title: "Kategoriler", url: "/admin/partner-categories" },
     ],
+  },
+  {
+    title: "Projeler",
+    url: "/admin/projects",
+    icon: <FolderKanbanIcon />,
   },
   {
     title: "Slaytlar",

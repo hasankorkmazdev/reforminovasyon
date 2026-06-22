@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { api, type Slide } from "@/lib/api"
+import { api, type Project } from "@/lib/api"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
@@ -10,16 +10,13 @@ import { AdminHeader } from "@/components/admin-header"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { toast } from "sonner"
 
-export default function SlidesPage() {
-  const [slides, setSlides] = useState<Slide[]>([])
+export default function ProjectsPage() {
+  const [projects, setProjects] = useState<Project[]>([])
   const [open, setOpen] = useState(false)
   const [editId, setEditId] = useState<number | null>(null)
   const [imageUrl, setImageUrl] = useState("")
   const [title, setTitle] = useState("")
-  const [subtitle, setSubtitle] = useState("")
   const [description, setDescription] = useState("")
-  const [linkUrl, setLinkUrl] = useState("")
-  const [linkText, setLinkText] = useState("")
   const [sortOrder, setSortOrder] = useState(0)
   const [isActive, setIsActive] = useState(true)
   const [uploading, setUploading] = useState(false)
@@ -28,25 +25,22 @@ export default function SlidesPage() {
   useEffect(() => {
     let cancelled = false
     ;(async () => {
-      const data = await api.getAllSlides()
-      if (!cancelled) setSlides(data)
+      const data = await api.getAllProjects()
+      if (!cancelled) setProjects(data)
     })()
     return () => { cancelled = true }
   }, [])
 
   async function load() {
-    const data = await api.getAllSlides()
-    setSlides(data)
+    const data = await api.getAllProjects()
+    setProjects(data)
   }
 
   function resetForm() {
     setEditId(null)
     setImageUrl("")
     setTitle("")
-    setSubtitle("")
     setDescription("")
-    setLinkUrl("")
-    setLinkText("")
     setSortOrder(0)
     setIsActive(true)
   }
@@ -56,16 +50,13 @@ export default function SlidesPage() {
     setOpen(true)
   }
 
-  function openEdit(s: Slide) {
-    setEditId(s.id)
-    setImageUrl(s.imageUrl)
-    setTitle(s.title || "")
-    setSubtitle(s.subtitle || "")
-    setDescription(s.description || "")
-    setLinkUrl(s.linkUrl || "")
-    setLinkText(s.linkText || "")
-    setSortOrder(s.sortOrder)
-    setIsActive(s.isActive)
+  function openEdit(p: Project) {
+    setEditId(p.id)
+    setImageUrl(p.imageUrl)
+    setTitle(p.title)
+    setDescription(p.description || "")
+    setSortOrder(p.sortOrder)
+    setIsActive(p.isActive)
     setOpen(true)
   }
 
@@ -88,14 +79,15 @@ export default function SlidesPage() {
   async function handleSave(e: React.FormEvent) {
     e.preventDefault()
     if (!imageUrl) { toast.error("Lütfen bir resim yükleyin"); return }
+    if (!title.trim()) { toast.error("Lütfen bir başlık girin"); return }
     try {
-      const data = { imageUrl, title: title || undefined, subtitle: subtitle || undefined, description: description || undefined, linkUrl: linkUrl || undefined, linkText: linkText || undefined, sortOrder, isActive }
+      const data = { imageUrl, title, description: description || undefined, sortOrder, isActive }
       if (editId) {
-        await api.updateSlide(editId, data)
-        toast.success("Slayt güncellendi")
+        await api.updateProject(editId, data)
+        toast.success("Proje güncellendi")
       } else {
-        await api.createSlide(data)
-        toast.success("Slayt oluşturuldu")
+        await api.createProject(data)
+        toast.success("Proje oluşturuldu")
       }
       setOpen(false)
       load()
@@ -107,17 +99,17 @@ export default function SlidesPage() {
   async function handleDelete(id: number) {
     if (!confirm("Silmek istediğinize emin misiniz?")) return
     try {
-      await api.deleteSlide(id)
-      toast.success("Slayt silindi")
+      await api.deleteProject(id)
+      toast.success("Proje silindi")
       load()
     } catch (err: unknown) {
       toast.error(err instanceof Error ? err.message : "Bir hata oluştu")
     }
   }
 
-  async function toggleActive(s: Slide) {
+  async function toggleActive(p: Project) {
     try {
-      await api.updateSlide(s.id, { imageUrl: s.imageUrl, title: s.title || undefined, subtitle: s.subtitle || undefined, description: s.description || undefined, linkUrl: s.linkUrl || undefined, linkText: s.linkText || undefined, sortOrder: s.sortOrder, isActive: !s.isActive })
+      await api.updateProject(p.id, { imageUrl: p.imageUrl, title: p.title, description: p.description || undefined, sortOrder: p.sortOrder, isActive: !p.isActive })
       load()
     } catch (err: unknown) {
       toast.error(err instanceof Error ? err.message : "Bir hata oluştu")
@@ -128,16 +120,16 @@ export default function SlidesPage() {
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <AdminHeader items={[{ label: "Slayt Yönetimi" }]} />
+        <AdminHeader items={[{ label: "Proje Yönetimi" }]} />
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
           <div className="flex justify-end">
-            <Button onClick={openCreate}>Yeni Slayt</Button>
+            <Button onClick={openCreate}>Yeni Proje</Button>
           </div>
 
           <Dialog open={open} onOpenChange={(v) => { setOpen(v); if (!v) resetForm() }}>
             <DialogContent className="max-w-lg">
               <DialogHeader>
-                <DialogTitle>{editId ? "Slayt Düzenle" : "Yeni Slayt"}</DialogTitle>
+                <DialogTitle>{editId ? "Proje Düzenle" : "Yeni Proje"}</DialogTitle>
               </DialogHeader>
               <form onSubmit={handleSave} className="flex flex-col gap-4">
                 <div className="grid gap-2">
@@ -155,22 +147,8 @@ export default function SlidesPage() {
                   <Input value={title} onChange={(e) => setTitle(e.target.value)} />
                 </div>
                 <div className="grid gap-2">
-                  <label className="text-sm font-medium">Alt Başlık</label>
-                  <Input value={subtitle} onChange={(e) => setSubtitle(e.target.value)} />
-                </div>
-                <div className="grid gap-2">
                   <label className="text-sm font-medium">Açıklama</label>
                   <textarea className="min-h-[60px] rounded-lg border border-input bg-transparent px-2.5 py-1.5 text-sm" value={description} onChange={(e) => setDescription(e.target.value)} />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="grid gap-2">
-                    <label className="text-sm font-medium">Link URL</label>
-                    <Input value={linkUrl} onChange={(e) => setLinkUrl(e.target.value)} placeholder="https://" />
-                  </div>
-                  <div className="grid gap-2">
-                    <label className="text-sm font-medium">Link Metni</label>
-                    <Input value={linkText} onChange={(e) => setLinkText(e.target.value)} placeholder="Detaylı Bilgi" />
-                  </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="grid gap-2">
@@ -200,37 +178,39 @@ export default function SlidesPage() {
                   <tr className="border-b">
                     <th className="px-4 py-3 text-left font-medium">Önizleme</th>
                     <th className="px-4 py-3 text-left font-medium">Başlık</th>
+                    <th className="px-4 py-3 text-left font-medium">Açıklama</th>
                     <th className="px-4 py-3 text-left font-medium">Sıra</th>
                     <th className="px-4 py-3 text-left font-medium">Aktif</th>
                     <th className="px-4 py-3 text-right font-medium">İşlem</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {slides.length === 0 && (
+                  {projects.length === 0 && (
                     <tr>
-                      <td colSpan={5} className="px-4 py-8 text-center text-muted-foreground">
-                        Henüz slayt eklenmemiş.
+                      <td colSpan={6} className="px-4 py-8 text-center text-muted-foreground">
+                        Henüz proje eklenmemiş.
                       </td>
                     </tr>
                   )}
-                  {slides.map((s) => (
-                    <tr key={s.id} className="border-b last:border-0 hover:bg-muted/50">
+                  {projects.map((p) => (
+                    <tr key={p.id} className="border-b last:border-0 hover:bg-muted/50">
                       <td className="px-4 py-3">
-                        <img src={s.imageUrl} alt="" className="h-12 w-20 rounded border object-cover" />
+                        <img src={p.imageUrl} alt="" className="h-12 w-20 rounded border object-cover" />
                       </td>
-                      <td className="px-4 py-3 font-medium">{s.title || <span className="text-muted-foreground italic">—</span>}</td>
-                      <td className="px-4 py-3">{s.sortOrder}</td>
+                      <td className="px-4 py-3 font-medium">{p.title}</td>
+                      <td className="px-4 py-3 max-w-xs truncate">{p.description || <span className="text-muted-foreground italic">—</span>}</td>
+                      <td className="px-4 py-3">{p.sortOrder}</td>
                       <td className="px-4 py-3">
                         <button
-                          className={`inline-flex h-6 w-10 cursor-pointer items-center rounded-full border transition-colors ${s.isActive ? "bg-green-500 border-green-500" : "bg-muted border-input"}`}
-                          onClick={() => toggleActive(s)}
+                          className={`inline-flex h-6 w-10 cursor-pointer items-center rounded-full border transition-colors ${p.isActive ? "bg-green-500 border-green-500" : "bg-muted border-input"}`}
+                          onClick={() => toggleActive(p)}
                         >
-                          <span className={`inline-block h-4 w-4 rounded-full bg-white transition-transform ${s.isActive ? "translate-x-5" : "translate-x-0.5"}`} />
+                          <span className={`inline-block h-4 w-4 rounded-full bg-white transition-transform ${p.isActive ? "translate-x-5" : "translate-x-0.5"}`} />
                         </button>
                       </td>
                       <td className="px-4 py-3 text-right">
-                        <Button variant="outline" size="sm" className="mr-2" onClick={() => openEdit(s)}>Düzenle</Button>
-                        <Button variant="destructive" size="sm" onClick={() => handleDelete(s.id)}>Sil</Button>
+                        <Button variant="outline" size="sm" className="mr-2" onClick={() => openEdit(p)}>Düzenle</Button>
+                        <Button variant="destructive" size="sm" onClick={() => handleDelete(p.id)}>Sil</Button>
                       </td>
                     </tr>
                   ))}
