@@ -9,9 +9,17 @@ export default function MarketingLayout({
 }) {
   return (
     <>
-      <Header />
-      {children}
-      <Footer />
+      <div className="blob-bg">
+        <div className="blob blob-black" />
+        <div className="blob blob-red" />
+        <div className="blob blob-white" />
+        <div className="blob blob-blue" />
+      </div>
+      <div className="marketing-wrapper">
+        <Header />
+        {children}
+        <Footer />
+      </div>
     </>
   );
 }

@@ -42,6 +42,7 @@ public class ProjectsController : ControllerBase
             ImageUrl = request.ImageUrl,
             Title = request.Title,
             Description = request.Description,
+            Color = request.Color,
             SortOrder = request.SortOrder,
             IsActive = request.IsActive
         };
@@ -60,6 +61,7 @@ public class ProjectsController : ControllerBase
         project.ImageUrl = request.ImageUrl;
         project.Title = request.Title;
         project.Description = request.Description;
+        project.Color = request.Color;
         project.SortOrder = request.SortOrder;
         project.IsActive = request.IsActive;
 

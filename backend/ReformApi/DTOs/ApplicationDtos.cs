@@ -44,6 +44,7 @@ public record ProjectRequest(
     string ImageUrl,
     string Title,
     string? Description,
+    string? Color,
     int SortOrder,
     bool IsActive
 );

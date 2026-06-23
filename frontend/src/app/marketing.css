@@ -5,7 +5,6 @@ body {
   overflow-y: auto;
   min-height: 100vh;
   width: 100vw;
-  background: #4d4c4c !important;
 }
 
 .content-container {
@@ -19,7 +18,6 @@ body::after {
   left: 0;
   width: 100%;
   height: 1px;
-  background: rgba(255, 77, 77, 0.25);
   z-index: 1040;
   pointer-events: none;
   transition: all 0.4s ease;
@@ -38,7 +36,6 @@ body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, p {
 
 .text-stroke {
   -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: #FF4D4D !important;
   color: transparent;
 }
 
@@ -895,4 +892,132 @@ body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, p {
     flex-direction: column;
     text-align: center;
   }
+}
+
+/* Blur blob background */
+.blob-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  mix-blend-mode: screen;
+  animation: blobFloat 12s infinite ease-in-out;
+}
+
+.blob-black {
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  border-radius: 0;
+  filter: none;
+  mix-blend-mode: normal;
+  animation: none;
+}
+
+.blob-red {
+  width: 550px;
+  height: 550px;
+  background: #FF4D4D;
+  top: 20%;
+  right: 15%;
+  opacity: 0.55;
+  animation-delay: 0s;
+}
+
+.blob-white {
+  width: 400px;
+  height: 400px;
+  background: #ffffff;
+  bottom: 10%;
+  left: 30%;
+  opacity: 0.18;
+  animation-delay: 3s;
+}
+
+.blob-blue {
+  width: 450px;
+  height: 450px;
+  background: #0F52BA;
+  top: 50%;
+  left: 5%;
+  opacity: 0.4;
+  animation-delay: 6s;
+}
+
+@keyframes blobFloat {
+  0%   { transform: translate(0px, 0px) scale(1); }
+  33%  { transform: translate(30px, -30px) scale(1.08); }
+  66%  { transform: translate(-20px, 20px) scale(0.95); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+/* Ensure marketing pages have positioned context for blobs */
+.marketing-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+.project-card:hover {
+  transform: translateY(-8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  box-shadow:
+    0 0 20px rgba(77, 155, 255, 0.25),
+    0 0 40px rgba(255, 77, 141, 0.15) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.project-carousel .swiper-wrapper {
+  align-items: stretch;
+}
+
+.project-carousel .swiper-slide {
+  height: auto;
+}
+
+.project-carousel .swiper-slide > div {
+  height: 100%;
+}
+
+.project-carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(12px);
+  color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.project-carousel-btn.prev {
+  left: -50px;
+}
+
+.project-carousel-btn.next {
+  right: -50px;
+}
+
+.project-carousel-btn:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.14);
+  border-color: rgba(255,255,255,0.25);
 }

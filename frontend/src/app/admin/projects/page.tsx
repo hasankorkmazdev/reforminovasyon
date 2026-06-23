@@ -19,7 +19,10 @@ export default function ProjectsPage() {
   const [description, setDescription] = useState("")
   const [sortOrder, setSortOrder] = useState(0)
   const [isActive, setIsActive] = useState(true)
+  const [color, setColor] = useState("")
   const [uploading, setUploading] = useState(false)
+
+  const presetColors = ["#28A745", "#0F52BA", "#DC3545", "#8B4513", "#F5F5F5"]
   const fileRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -41,6 +44,7 @@ export default function ProjectsPage() {
     setImageUrl("")
     setTitle("")
     setDescription("")
+    setColor("")
     setSortOrder(0)
     setIsActive(true)
   }
@@ -55,6 +59,7 @@ export default function ProjectsPage() {
     setImageUrl(p.imageUrl)
     setTitle(p.title)
     setDescription(p.description || "")
+    setColor(p.color || "")
     setSortOrder(p.sortOrder)
     setIsActive(p.isActive)
     setOpen(true)
@@ -81,7 +86,7 @@ export default function ProjectsPage() {
     if (!imageUrl) { toast.error("Lütfen bir resim yükleyin"); return }
     if (!title.trim()) { toast.error("Lütfen bir başlık girin"); return }
     try {
-      const data = { imageUrl, title, description: description || undefined, sortOrder, isActive }
+      const data = { imageUrl, title, description: description || undefined, color: color || undefined, sortOrder, isActive }
       if (editId) {
         await api.updateProject(editId, data)
         toast.success("Proje güncellendi")
@@ -109,7 +114,7 @@ export default function ProjectsPage() {
 
   async function toggleActive(p: Project) {
     try {
-      await api.updateProject(p.id, { imageUrl: p.imageUrl, title: p.title, description: p.description || undefined, sortOrder: p.sortOrder, isActive: !p.isActive })
+      await api.updateProject(p.id, { imageUrl: p.imageUrl, title: p.title, description: p.description || undefined, color: p.color || undefined, sortOrder: p.sortOrder, isActive: !p.isActive })
       load()
     } catch (err: unknown) {
       toast.error(err instanceof Error ? err.message : "Bir hata oluştu")
@@ -163,6 +168,37 @@ export default function ProjectsPage() {
                     </label>
                   </div>
                 </div>
+                <div className="grid gap-2">
+                  <label className="text-sm font-medium">Renk</label>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <input
+                      type="color"
+                      value={color || "#000000"}
+                      onChange={(e) => setColor(e.target.value)}
+                      className="h-8 w-8 cursor-pointer rounded border"
+                    />
+                    {presetColors.map((c) => (
+                      <button
+                        key={c}
+                        type="button"
+                        onClick={() => setColor(c)}
+                        className={`h-7 w-7 rounded-full border-2 transition-all hover:scale-110 ${color === c ? "border-foreground scale-110 ring-2 ring-offset-1" : "border-border"}`}
+                        style={{ backgroundColor: c }}
+                        title={c}
+                      />
+                    ))}
+                    {color && (
+                      <button
+                        type="button"
+                        onClick={() => setColor("")}
+                        className="h-7 w-7 rounded-full border-2 border-dashed border-muted-foreground text-xs text-muted-foreground hover:border-foreground"
+                        title="Temizle"
+                      >
+                        ✕
+                      </button>
+                    )}
+                  </div>
+                </div>
                 <div className="flex justify-end gap-2 mt-2">
                   <Button type="button" variant="outline" onClick={() => setOpen(false)}>İptal</Button>
                   <Button type="submit">{editId ? "Güncelle" : "Ekle"}</Button>
@@ -179,6 +215,7 @@ export default function ProjectsPage() {
                     <th className="px-4 py-3 text-left font-medium">Önizleme</th>
                     <th className="px-4 py-3 text-left font-medium">Başlık</th>
                     <th className="px-4 py-3 text-left font-medium">Açıklama</th>
+                    <th className="px-4 py-3 text-left font-medium">Renk</th>
                     <th className="px-4 py-3 text-left font-medium">Sıra</th>
                     <th className="px-4 py-3 text-left font-medium">Aktif</th>
                     <th className="px-4 py-3 text-right font-medium">İşlem</th>
@@ -187,7 +224,7 @@ export default function ProjectsPage() {
                 <tbody>
                   {projects.length === 0 && (
                     <tr>
-                      <td colSpan={6} className="px-4 py-8 text-center text-muted-foreground">
+                      <td colSpan={7} className="px-4 py-8 text-center text-muted-foreground">
                         Henüz proje eklenmemiş.
                       </td>
                     </tr>
@@ -198,8 +235,15 @@ export default function ProjectsPage() {
                         <img src={p.imageUrl} alt="" className="h-12 w-20 rounded border object-cover" />
                       </td>
                       <td className="px-4 py-3 font-medium">{p.title}</td>
-                      <td className="px-4 py-3 max-w-xs truncate">{p.description || <span className="text-muted-foreground italic">—</span>}</td>
-                      <td className="px-4 py-3">{p.sortOrder}</td>
+                    <td className="px-4 py-3 max-w-xs truncate">{p.description || <span className="text-muted-foreground italic">—</span>}</td>
+                    <td className="px-4 py-3">
+                      {p.color ? (
+                        <span className="inline-block h-5 w-5 rounded-full border" style={{ backgroundColor: p.color }} title={p.color} />
+                      ) : (
+                        <span className="text-muted-foreground italic">—</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-3">{p.sortOrder}</td>
                       <td className="px-4 py-3">
                         <button
                           className={`inline-flex h-6 w-10 cursor-pointer items-center rounded-full border transition-colors ${p.isActive ? "bg-green-500 border-green-500" : "bg-muted border-input"}`}

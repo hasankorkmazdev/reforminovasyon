@@ -6,6 +6,7 @@ import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/pagination";
+import "swiper/css/navigation";
 import { api, Slide, Project } from "@/lib/api";
 
 export default function HomeSlider() {
@@ -13,6 +14,7 @@ export default function HomeSlider() {
   const [projects, setProjects] = useState<Project[]>([]);
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
+  const projectSwiperRef = useRef<any>(null);
 
   useEffect(() => {
     api.getSlides().then(setSlides).catch(() => {});
@@ -23,7 +25,7 @@ export default function HomeSlider() {
     <>
       <main style={{ position: "relative", width: "100%", height: "75vh", overflow: "hidden" }}>
         {slides.length === 0 ? (
-          <div className="d-flex align-items-center justify-content-center" style={{ height: "75vh", background: "#0a0a0a" }}>
+          <div className="d-flex align-items-center justify-content-center" style={{ height: "75vh" }}>
             <div className="text-center">
               <div className="spinner-border text-light mb-3" role="status" />
               <p className="text-white-50">Yükleniyor...</p>
@@ -203,8 +205,8 @@ export default function HomeSlider() {
       </main>
 
       {projects.length > 0 && (
-        <section style={{ background: "#0a0a0a", padding: "80px 0" }}>
-          <div className="container">
+        <section style={{ padding: "80px 0" }}>
+          <div className="container" style={{ position: "relative" }}>
             <div className="text-center mb-5">
               <span className="badge mb-3 px-3 py-2 text-uppercase d-inline-block"
                 style={{ background: "rgba(255,77,77,0.15)", border: "1px solid rgba(255,77,77,0.3)", letterSpacing: "2px", color: "#fff", borderRadius: "50px" }}>
@@ -217,31 +219,32 @@ export default function HomeSlider() {
                 Her biri özenle planlanmış ve titizlikle hayata geçirilmiş işlerimiz
               </p>
             </div>
-            <div className="row g-4">
-              {projects.slice(0, 4).map((project) => (
-                <div key={project.id} className="col-lg-3 col-md-6">
-                  <div
-                    className="h-100"
-                    style={{
-                      background: "rgba(255,255,255,0.03)",
-                      border: "1px solid rgba(255,255,255,0.06)",
-                      borderRadius: "20px",
-                      overflow: "hidden",
-                      transition: "all 0.4s ease",
-                      cursor: "pointer",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = "translateY(-8px)";
-                      e.currentTarget.style.borderColor = "rgba(255,77,77,0.3)";
-                      e.currentTarget.style.boxShadow = "0 20px 40px rgba(0,0,0,0.4)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = "translateY(0)";
-                      e.currentTarget.style.borderColor = "rgba(255,255,255,0.06)";
-                      e.currentTarget.style.boxShadow = "none";
-                    }}
+            <Swiper
+              className="project-carousel"
+              onBeforeInit={(swiper) => { projectSwiperRef.current = swiper; }}
+              spaceBetween={16}
+              slidesPerView={1}
+              breakpoints={{
+                576: { slidesPerView: 2 },
+                992: { slidesPerView: 3 },
+                1200: { slidesPerView: 4 },
+              }}
+              style={{ padding: "4px" }}
+            >
+              {projects.map((project) => (
+                <SwiperSlide key={project.id}>
+                    <div
+                      className="h-100 d-flex flex-column project-card"
+                      style={{
+                        background: "rgba(255,255,255,0.03)",
+                        border: "1px solid rgba(255,255,255,0.06)",
+                        borderRadius: "20px",
+                        overflow: "hidden",
+                        transition: "all 0.4s ease",
+                        cursor: "pointer",
+                      }}
                   >
-                    <div style={{ height: "200px", overflow: "hidden" }}>
+                    <div style={{ position: "relative", height: "200px", overflow: "hidden" }}>
                       <img
                         src={project.imageUrl}
                         alt={project.title}
@@ -249,19 +252,121 @@ export default function HomeSlider() {
                         onMouseEnter={(e) => { e.currentTarget.style.transform = "scale(1.1)"; }}
                         onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
                       />
+                      {(() => {
+                        const c = project.color;
+                        if (!c) return null;
+                        const shortName = project.title.split(" — ")[0] || project.title;
+                        const colorPart = shortName.startsWith("Ref") ? shortName.slice(3) : shortName;
+                        return (
+                          <div
+                            style={{
+                              position: "absolute",
+                              left: "4px",
+                              bottom: "4px",
+                              writingMode: "sideways-lr",
+                              textTransform: "uppercase",
+                              letterSpacing: "2px",
+                              pointerEvents: "none",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "2px",
+                            }}
+                          >
+                            <span style={{ color: "#fff", fontSize: "30px", fontWeight: 900, lineHeight: 1, fontFamily: "'Prompt', sans-serif", textShadow: "0 0 20px rgba(255,255,255,0.9)" }}>
+                              Ref
+                            </span>
+                            <span style={{ fontSize: "30px", lineHeight: 1, color: "transparent" }}>&nbsp;</span>
+                            <span
+                              className="text-stroke"
+                              style={{
+                                WebkitTextStrokeColor: c,
+                                fontSize: "30px",
+                                fontWeight: 900,
+                                lineHeight: 1,
+                                fontFamily: "'Prompt', sans-serif",
+                                textShadow: "0 0 20px rgba(255,255,255,0.9)",
+                              }}
+                            >
+                              {colorPart}
+                            </span>
+                          </div>
+                        );
+                      })()}
                     </div>
-                    <div className="p-4">
+                    <div className="p-4 d-flex flex-column" style={{ flex: 1 }}>
                       <h5 className="fw-semibold mb-2" style={{ color: "#fff" }}>{project.title}</h5>
                       {project.description && (
-                        <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.9rem", lineHeight: 1.6, margin: 0 }}>
+                        <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.9rem", lineHeight: 1.6, flex: 1, margin: 0, marginBottom: "16px" }}>
                           {project.description}
                         </p>
                       )}
+                      <a
+                        href={`/ref${(() => { const s = project.title.split(" — ")[0]; return s.startsWith("Ref") ? s.slice(3).toLowerCase() : ""; })()}`}
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          gap: "8px",
+                          marginTop: "auto",
+                          padding: "10px 20px",
+                          fontSize: "0.85rem",
+                          fontWeight: 600,
+                          letterSpacing: "1px",
+                          color: "#fff",
+                          background: "rgba(255,255,255,0.06)",
+                          backdropFilter: "blur(16px)",
+                          WebkitBackdropFilter: "blur(16px)",
+                          border: "1px solid rgba(255,255,255,0.12)",
+                          borderRadius: "50px",
+                          textDecoration: "none",
+                          textTransform: "uppercase",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = "rgba(255,255,255,0.14)";
+                          e.currentTarget.style.borderColor = "rgba(255,255,255,0.3)";
+                          e.currentTarget.style.transform = "translateY(-2px)";
+                          e.currentTarget.style.boxShadow = "0 8px 25px rgba(0,0,0,0.3)";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = "rgba(255,255,255,0.06)";
+                          e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)";
+                          e.currentTarget.style.transform = "translateY(0)";
+                          e.currentTarget.style.boxShadow = "none";
+                        }}
+                      >
+                        Projeyi İncele
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <line x1="5" y1="12" x2="19" y2="12" />
+                          <polyline points="12 5 19 12 12 19" />
+                        </svg>
+                      </a>
                     </div>
                   </div>
-                </div>
+                </SwiperSlide>
               ))}
-            </div>
+            </Swiper>
+            <button
+              className="project-carousel-btn prev"
+              onClick={() => projectSwiperRef.current?.slidePrev()}
+              aria-label="Önceki"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12" />
+                <polyline points="12 19 5 12 12 5" />
+              </svg>
+            </button>
+            <button
+              className="project-carousel-btn next"
+              onClick={() => projectSwiperRef.current?.slideNext()}
+              aria-label="Sonraki"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </button>
           </div>
         </section>
       )}

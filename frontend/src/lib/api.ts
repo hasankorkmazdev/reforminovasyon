@@ -120,6 +120,7 @@ export const api = {
     imageUrl: string;
     title: string;
     description?: string;
+    color?: string;
     sortOrder: number;
     isActive: boolean;
   }) =>
@@ -132,6 +133,7 @@ export const api = {
     imageUrl: string;
     title: string;
     description?: string;
+    color?: string;
     sortOrder: number;
     isActive: boolean;
   }) =>
@@ -258,6 +260,7 @@ export interface Project {
   imageUrl: string;
   title: string;
   description: string | null;
+  color: string | null;
   sortOrder: number;
   isActive: boolean;
   createdAt: string;

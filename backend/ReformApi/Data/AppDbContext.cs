@@ -107,6 +107,7 @@ public class AppDbContext : DbContext
             e.Property(x => x.ImageUrl).IsRequired().HasColumnName("image_url");
             e.Property(x => x.Title).IsRequired().HasColumnName("title");
             e.Property(x => x.Description).HasColumnName("description");
+            e.Property(x => x.Color).HasColumnName("color");
             e.Property(x => x.SortOrder).HasColumnName("sort_order");
             e.Property(x => x.IsActive).HasColumnName("is_active");
             e.Property(x => x.CreatedAt).HasDefaultValueSql("NOW()").HasColumnName("created_at");
